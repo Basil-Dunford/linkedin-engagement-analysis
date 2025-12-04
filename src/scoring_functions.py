@@ -12,6 +12,10 @@ def calculate_scores():
     # 1. Standard Rates
     # ER_followers = engagements / followers
     # Handle division by zero or NaN followers
+    # Ensure followers is numeric
+    df['followers'] = pd.to_numeric(df['followers'], errors='coerce')
+    df['engagements'] = pd.to_numeric(df['engagements'], errors='coerce')
+    
     df['ER_followers'] = df['engagements'] / df['followers']
     
     # ER_impressions = engagements / impressions
