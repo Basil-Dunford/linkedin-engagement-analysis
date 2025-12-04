@@ -39,7 +39,7 @@ def calculate_scores():
     # 3. Time Decay Score
     # Calculate hours_since_publish
     # Reference time: Max post date in dataset
-    df['post_date'] = pd.to_datetime(df['post_date'])
+    df['post_date'] = pd.to_datetime(df['post_date'], format='mixed')
     max_date = df['post_date'].max()
     
     df['hours_since_publish'] = (max_date - df['post_date']).dt.total_seconds() / 3600
