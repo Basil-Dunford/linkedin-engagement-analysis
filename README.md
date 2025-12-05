@@ -67,7 +67,7 @@ Based on SHAP value analysis and correlation studies, here is the data-backed pl
 ### B. Feature Deep Dives
 | Optimal Length (`word_count`) | Best Time (`hour`) |
 | :---: | :---: |
-| <img src="data/visualizations/shap_dependence_word_count.png" width="400" /> | <img src="data/visualizations/shap_dependence_hour.png" width="628" /> |
+| <img src="data/visualizations/shap_dependence_word_count.png" width="400" /> | <img src="data/visualizations/shap_dependence_hour.png" width="400" /> |
 *Left: Engagement peaks between 250-550 words. Right: Posting at 10am yields the highest lift.*
 
 ---
