@@ -8,13 +8,15 @@ This project analyzes LinkedIn post performance to identify drivers of high enga
     - `raw/`: Raw JSON input.
     - `intermediate/`: Cleaned CSVs.
     - `features/`: Model-ready data and NLP outputs.
-    - `models/`: Trained LightGBM model and SHAP plots.
+    - `models/`: Trained LightGBM model.
+    - `visualizations/`: SHAP plots and binning charts.
 - `src/`: Source code.
     - `ingest_data.py`: Loads and verifies raw data.
     - `data_cleaning.py`: Cleans data and extracts features.
     - `scoring_functions.py`: Calculates engagement scores (Schemes A, B, C).
     - `models.py`: Trains predictive model and computes SHAP values.
     - `feature_engineering.py`: Performs NLP analysis (TF-IDF, linguistic patterns).
+    - `visualize_analysis.py`: Generates SHAP dependence plots and binning analysis.
 - `docs/`: Documentation and reports.
     - `final_report.md`: Detailed findings and recommendations.
     - `project_log.md`: Log of data assumptions and issues.
@@ -48,6 +50,10 @@ Run the pipeline in order:
 5. **Run NLP Analysis**:
    ```bash
    python src/feature_engineering.py
+   ```
+6. **Generate Visualizations**:
+   ```bash
+   python src/visualize_analysis.py
    ```
 
 ## Key Findings
