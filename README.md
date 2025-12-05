@@ -11,6 +11,7 @@ This project analyzes LinkedIn post performance to identify drivers of high enga
     - `models/`: Trained LightGBM model.
     - `visualizations/`: SHAP plots and binning charts.
 - `src/`: Source code.
+    - `pre_clean_data.py`: Converts raw JSON to CSV.
     - `ingest_data.py`: Loads and verifies raw data.
     - `data_cleaning.py`: Cleans data and extracts features.
     - `scoring_functions.py`: Calculates engagement scores (Schemes A, B, C).
@@ -33,6 +34,7 @@ Run the pipeline in order:
 
 1. **Ingest Data**:
    ```bash
+   python src/pre_clean_data.py
    python src/ingest_data.py
    ```
 2. **Clean Data**:
