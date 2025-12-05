@@ -58,8 +58,8 @@ def visualize_analysis():
             
             # Special handling for video_duration to remove outliers
             if feature == 'video_duration':
-                # Filter for duration < 20 minutes
-                mask = X_display['video_duration'] < 20
+                # Filter for duration < 18 minutes
+                mask = X_display['video_duration'] < 18
                 shap.dependence_plot(feature, shap_values[mask], X_display[mask], show=False)
             else:
                 shap.dependence_plot(feature, shap_values, X_display, show=False)
