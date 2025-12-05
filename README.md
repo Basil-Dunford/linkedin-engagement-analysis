@@ -65,10 +65,33 @@ Based on SHAP value analysis and correlation studies, here is the data-backed pl
 *The SHAP summary reveals that content depth (`word_count`) and timing (`hour`, `weekday`) are the strongest predictors of success.*
 
 ### B. Feature Deep Dives
-| Optimal Length (`word_count`) | Best Time (`hour`) |
-| :---: | :---: |
-| <img src="data/visualizations/shap_dependence_word_count.png" width="400" /> | <img src="data/visualizations/shap_dependence_hour.png" width="400" /> |
-*Left: Engagement peaks between 250-550 words. Right: Posting at 10am yields the highest lift.*
+
+<table>
+  <tr>
+    <td width="50%" style="text-align:center">
+      <b>Optimal Length (`word_count`)</b>
+    </td>
+    <td width="50%" style="text-align:center">
+      <b>Best Time (`hour`)</b>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="data/visualizations/shap_dependence_word_count.png" width="100%" />
+    </td>
+    <td>
+      <img src="data/visualizations/shap_dependence_hour.png" width="100%" />
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:center">
+      <i>Engagement peaks between 250-550 words.</i>
+    </td>
+    <td style="text-align:center">
+      <i>Posting at 10am yields the highest lift.</i>
+    </td>
+  </tr>
+</table>
 
 ---
 
