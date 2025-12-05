@@ -96,7 +96,12 @@ def train_model():
     # Summary Plot
     plt.figure()
     shap.summary_plot(shap_values, X_test, show=False)
-    shap_plot_path = os.path.join(model_dir, "shap_summary.png")
+    
+    # Save to visualizations directory
+    viz_dir = os.path.join("data", "visualizations")
+    os.makedirs(viz_dir, exist_ok=True)
+    shap_plot_path = os.path.join(viz_dir, "shap_summary.png")
+    
     plt.savefig(shap_plot_path, bbox_inches='tight')
     print(f"SHAP summary plot saved to {shap_plot_path}")
     
