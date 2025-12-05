@@ -1,7 +1,7 @@
 # LinkedIn Engagement Analysis: Final Report
 
 ## Executive Summary
-This analysis aimed to identify the drivers of high engagement on LinkedIn by analyzing a dataset of 3,734 posts. We processed the data to extract temporal, linguistic, and media-type features and trained a LightGBM classifier to predict high-performing posts (Top 20% by engagement).
+This analysis aimed to identify the drivers of high engagement on LinkedIn by analyzing a dataset of 3,734 posts. I processed the data to extract temporal, linguistic, and media-type features and trained a LightGBM classifier to predict high-performing posts (Top 20% by engagement).
 
 **Key Findings:**
 - **Content Length Matters**: `word_count` is the single most important predictor of engagement.
@@ -10,13 +10,13 @@ This analysis aimed to identify the drivers of high engagement on LinkedIn by an
 - **Linguistic Patterns**: "Collective" language ("we", "us") correlates positively with high performance, suggesting community-focused content resonates better than self-promotion.
 
 **Data Limitations**:
-- **Missing Impressions**: The `impressions` column was missing, forcing us to rely on raw `engagements` as the target metric for the majority of the analysis (since `followers` data was also missing for >99% of posts).
+- **Missing Impressions**: The `impressions` column was missing, forcing me to rely on raw `engagements` as the target metric for the majority of the analysis (since `followers` data was also missing for >99% of posts).
 - **Missing Followers**: Only 12 posts had follower counts, making "Engagement Rate" calculations unreliable for the full dataset.
 
 Despite these limitations, the model achieved an ROC AUC of 0.67, providing a solid baseline for optimizing future content strategy.
 
 ## The "Magic Formula"
-We tested three weighted engagement scoring schemes to see which best predicted viral success (defined as Top 20% raw engagement).
+I tested three weighted engagement scoring schemes to see which best predicted viral success (defined as Top 20% raw engagement).
 
 - **Scheme A** (Likes + 3*Comments + 5*Shares): Correlation 0.44
 - **Scheme B** (Likes + 5*Comments + 3*Shares): **Correlation 0.48**
