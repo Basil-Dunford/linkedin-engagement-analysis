@@ -7,13 +7,13 @@
 ---
 
 ## 1. Executive Summary
-This project analyzes a dataset of **3,734 LinkedIn posts** to reverse-engineer the drivers of high engagement. By building a predictive machine learning pipeline (LightGBM), I identified the specific features that differentiate top-performing content (Top 20%) from the rest.
+This project analyzes **3,734 LinkedIn posts** to uncover what actually drives high engagement on the platform today. Using a full machine learning pipeline built on LightGBM, I reverse-engineered the behavioral signals that distinguish top-performing posts (Top 20%) from the rest.
 
-**Key Insight:** The "algorithm" has shifted. My analysis (Model ROC AUC: 0.67) proves that **conversational depth** (Comments) is a 5x stronger predictor of viral success than **broad reach** (Shares) or **passive approval** (Likes).
+**Key Insight:** LinkedIn’s engagement dynamics have shifted. My model (ROC AUC: 0.67) shows that **conversational depth**—measured by comments—is **5× more** predictive of virality than **broad reach** (Shares) or **passive approval** (Likes).
 
 ### Top-Level Findings
-* **Content Length Matters:** `word_count` is the #1 predictor of engagement.
-* **Community First:** Posts using "Collective" language ("We", "Us") outperform self-promotion ("I", "Me") by **16%**.
+* **Content Length Wins:** Having a higher `word_count` is the #1 predictor of engagement.
+* **"We" > "Me":** Posts using "Collective" language ("We", "Us") outperform self-promotion ("I", "Me") by **16%**.
 * **Video is King:** `video_duration` is a top-3 feature; video content significantly outperforms text-only updates.
 * **Timing is Critical:** Post performance is heavily dependent on `hour` and `weekday`.
 
@@ -22,7 +22,7 @@ This project analyzes a dataset of **3,734 LinkedIn posts** to reverse-engineer 
 ## 2. Hypothesis & Research
 Before modeling, I researched industry trends regarding the 2024/2025 LinkedIn algorithm updates to inform my feature engineering strategy.
 
-* **Research:** Recent reports suggest LinkedIn is prioritizing "constructive conversations" and "knowledge sharing" over empty virality.(More in `docs/research.md`)
+* **Research:** Recent reports suggest LinkedIn is prioritizing "constructive conversations" and "knowledge sharing" over empty passive approval.(More in `docs/research.md`)
 * **Hypothesis:** Based on this, I hypothesized that a scoring system weighted towards **Comments** would better reflect true high performance than one weighted towards Shares/Likes.
 * **Validation:** This was confirmed. My custom "Scheme B" scoring metric (prioritizing comments) showed the highest correlation (**0.48**) with the top 20% of high-performing posts, outperforming the standard vanity metrics.
 
@@ -33,7 +33,7 @@ I engineered three distinct engagement scoring schemes to test which behavior be
 
 | Scheme | Formula | Correlation (w/ Top 20%) | Verdict |
 | :--- | :--- | :--- | :--- |
-| **Scheme A (Reach)** | `Likes + 3*Comments + 5*Shares` | 0.44 | Good, but overvalues virality. |
+| **Scheme A (Reach)** | `Likes + 3*Comments + 5*Shares` | 0.44 | Good, but overvalues vanity metrics. |
 | **Scheme B (Conversation)** | `Likes + 5*Comments + 3*Shares` | **0.48** | **WINNER:** Best predictor of success. |
 | **Scheme C (Follower Ratio)** | `Engagements / Followers` | N/A | Discarded (insufficient follower data). |
 
