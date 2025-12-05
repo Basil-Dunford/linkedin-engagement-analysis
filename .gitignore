@@ -30,12 +30,7 @@ wheels/
 # Project Data (Keep structure but ignore large files)
 data/raw/*
 !data/raw/.gitkeep
-data/intermediate/*
-!data/intermediate/.gitkeep
-data/features/*
-!data/features/.gitkeep
-data/models/*
-!data/models/.gitkeep
+
 
 # Models
 *.pkl

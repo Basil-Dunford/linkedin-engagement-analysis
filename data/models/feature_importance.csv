@@ -1,0 +1,14 @@
+feature,importance
+word_count,0.7667090879227869
+hour,0.28751747117988485
+weekday,0.19650470512563814
+video_duration,0.19014731184649594
+has_emoji,0.1687372930858104
+has_hashtag,0.0879573258726828
+media_type_Text,0.033377678833090826
+doc_pages,0.0
+media_type_Document,0.0
+media_type_Poll,0.0
+media_type_Video,0.0
+media_type_Image,0.0
+media_type_Carousel,0.0

@@ -47,7 +47,6 @@ def calculate_scores():
     # Formula: score * (1 / (1 + 0.1 * hours_since_publish))
     # Applying to Scheme A as the primary example, but let's create a generic decay factor
     # and maybe apply it to all schemes or just create a 'decayed_score' based on a default?
-    # User said "Output: Apply these calculations".
     # I will create 'decay_factor' and 'decayed_Scheme_A', 'decayed_Scheme_B', 'decayed_Scheme_C'
     
     df['decay_factor'] = 1 / (1 + 0.1 * df['hours_since_publish'])
