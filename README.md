@@ -9,7 +9,7 @@
 ## 1. Executive Summary
 This project analyzes **3,734 LinkedIn posts** to uncover what actually drives high engagement on the platform today. Using a full machine learning pipeline built on LightGBM, I reverse-engineered the behavioral signals that distinguish top-performing posts (Top 20%) from the rest.
 
-**Key Insight:** LinkedIn’s engagement dynamics have shifted. My model (ROC AUC: 0.67) shows that **conversational depth**—measured by comments—is **5× more** predictive of virality than **broad reach** (Shares) or **passive approval** (Likes).
+**Key Insight:** LinkedIn’s engagement dynamics have shifted. My model (ROC AUC: 0.67, 38.2% better at predicting virality than random) shows that **conversational depth**—measured by comments—is **5× more** predictive of virality than **broad reach** (Shares) or **passive approval** (Likes).
 
 ### Top-Level Findings
 * **Content Length Wins:** Having a higher `word_count` is the #1 predictor of engagement.
@@ -95,7 +95,24 @@ Based on SHAP value analysis and correlation studies, here is the data-backed pl
 
 ---
 
-## 6. Technical Implementation
+
+---
+
+## 6. Experimental Findings (Optimization Update)
+*Recent experiments to push the model further.*
+
+I ran a grid search to find the "absolute best" weighted engagement scheme. The results were surprising:
+
+*   **Shares = Noise:** Removing shares completely (`weight=0`) actually *improved* model performance.
+*   **Comments are King:** The optimal formula was `15 * Comments + 1 * Likes`.
+*   **Result:** This new "Optimized Scheme" achieved a correlation of **0.53** (vs 0.48 for Scheme B).
+*   **Retraining:** The model was retrained with the new scheme and the results were promising. The new model ROC AUC: 0.6911 which predicts 38.2% better than random (vs 36.5% for Scheme B). 
+
+**Note:** While promising, this is currently an **experiment**. I need more data and time to validate if "ignoring shares" is a safe long-term strategy before rolling this out to the main production pipeline.
+
+---
+
+## 7. Technical Implementation
 
 ### Data Pipeline & Traceability
 The project follows a modular ETL pipeline structure.
@@ -124,7 +141,7 @@ I analyzed 3,734 posts. Key features include:
 * **Missing Followers:** Follower count missing for >99% of users. **Mitigation:** Pivoted from "Engagement Rate" to "Top 20% Classification" to ensure statistical validity.
 
 ---
-## 7. Setup & Usage
+## 8. Setup & Usage
 **Prerequisites:** Python 3.8+
 
 ### Project Structure
