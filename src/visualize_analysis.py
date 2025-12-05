@@ -46,11 +46,16 @@ def visualize_analysis():
         'has_emoji', 'has_hashtag', 'media_type_Text'
     ]
     
+    # Create display version of X for plotting (convert ms to min)
+    X_display = X.copy()
+    if 'video_duration' in X_display.columns:
+        X_display['video_duration'] = X_display['video_duration'] / 60000
+    
     print("Generating SHAP dependence plots...")
     for feature in target_features:
         if feature in X.columns:
             plt.figure(figsize=(10, 6))
-            shap.dependence_plot(feature, shap_values, X, show=False)
+            shap.dependence_plot(feature, shap_values, X_display, show=False)
             plt.title(f"SHAP Dependence: {feature}")
             out_path = os.path.join(viz_dir, f"shap_dependence_{feature}.png")
             plt.savefig(out_path, bbox_inches='tight')
@@ -61,6 +66,10 @@ def visualize_analysis():
     print("Performing Binning Analysis...")
     # Ensure engagements is numeric
     df['engagements'] = pd.to_numeric(df['engagements'], errors='coerce').fillna(0)
+    
+    # Convert video_duration to minutes for binning
+    if 'video_duration' in df.columns:
+        df['video_duration'] = df['video_duration'] / 60000
     
     for feature in target_features:
         if feature not in df.columns:
@@ -80,7 +89,10 @@ def visualize_analysis():
                 
             sns.barplot(x=f'{feature}_bin', y='engagements', data=df, errorbar=None)
             plt.xticks(rotation=45)
-            plt.xlabel(f"{feature} Range")
+            if feature == 'video_duration':
+                plt.xlabel(f"{feature} Range (minutes)")
+            else:
+                plt.xlabel(f"{feature} Range")
         else:
             # Discrete/Categorical
             sns.barplot(x=feature, y='engagements', data=df, errorbar=None)
