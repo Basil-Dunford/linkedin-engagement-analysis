@@ -1,15 +1,15 @@
 import pandas as pd
 import os
 import numpy as np
-import scoring_functions
+import scoring_v2
 
 def compare_scoring_schemes():
     # 1. Provide a way to run the scoring update first
     print("Updating scores with new schemes...")
-    scoring_functions.calculate_scores()
+    scoring_v2.calculate_scores()
     
     # 2. Load the newly saved data
-    input_path = os.path.join("data", "features", "model_ready.csv")
+    input_path = os.path.join("experiments", "05_scheme_optimization", "scored_data_v2.csv")
     if not os.path.exists(input_path):
         print(f"File not found: {input_path}")
         return
@@ -76,16 +76,22 @@ def compare_scoring_schemes():
     
     # Comparison Summary
     best_scheme = results_df.iloc[0]
-    baseline_scheme = results_df[results_df['Scheme'] == 'Scheme_Baseline'].iloc[0]
-    original_c = results_df[results_df['Scheme'] == 'Scheme_C'].iloc[0]
+    # Check if Baseline and C exist before trying to print them (Schemes might have changed in v2)
+    # But C is still there in scoring_v2.py
     
     print("\n--- Summary ---")
     print(f"Best Scheme: {best_scheme['Scheme']} (Corr: {best_scheme['Corr_Top20_Binary']:.4f})")
-    print(f"Original Best (C): {original_c['Corr_Top20_Binary']:.4f}")
-    print(f"Baseline (1x1x1): {baseline_scheme['Corr_Top20_Binary']:.4f}")
+    
+    if 'Scheme_C' in results_df['Scheme'].values:
+        original_c = results_df[results_df['Scheme'] == 'Scheme_C'].iloc[0]
+        print(f"Original Best (C): {original_c['Corr_Top20_Binary']:.4f}")
+        
+    if 'Scheme_Baseline' in results_df['Scheme'].values:
+        baseline_scheme = results_df[results_df['Scheme'] == 'Scheme_Baseline'].iloc[0]
+        print(f"Baseline (1x1x1): {baseline_scheme['Corr_Top20_Binary']:.4f}")
     
     # Save results
-    results_path = os.path.join("data", "scheme_comparison_results.csv")
+    results_path = os.path.join("experiments", "05_scheme_optimization", "scheme_comparison_results.csv")
     results_df.to_csv(results_path, index=False)
     print(f"\nFull results saved to {results_path}")
 

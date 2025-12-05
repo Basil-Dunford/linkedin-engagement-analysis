@@ -22,6 +22,9 @@ def calculate_scores():
     df['comments'] = pd.to_numeric(df['comments'], errors='coerce').fillna(0)
     df['shares'] = pd.to_numeric(df['shares'], errors='coerce').fillna(0)
     
+    # Calculate ER (Needed for target definition logic in compare_schemes)
+    df['ER_followers'] = df['engagements'] / df['followers']
+    
     # --- ABSOLUTE BEST SCHEME (Grid Search Result) ---
     # Optimized Weights: Likes=1, Comments=15, Shares=0
     df['Scheme_Optimized'] = df['likes_total'] * 1 + df['comments'] * 15 + df['shares'] * 0
