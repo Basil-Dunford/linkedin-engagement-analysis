@@ -55,7 +55,15 @@ def visualize_analysis():
     for feature in target_features:
         if feature in X.columns:
             plt.figure(figsize=(10, 6))
-            shap.dependence_plot(feature, shap_values, X_display, show=False)
+            
+            # Special handling for video_duration to remove outliers
+            if feature == 'video_duration':
+                # Filter for duration < 20 minutes
+                mask = X_display['video_duration'] < 20
+                shap.dependence_plot(feature, shap_values[mask], X_display[mask], show=False)
+            else:
+                shap.dependence_plot(feature, shap_values, X_display, show=False)
+                
             plt.title(f"SHAP Dependence: {feature}")
             out_path = os.path.join(viz_dir, f"shap_dependence_{feature}.png")
             plt.savefig(out_path, bbox_inches='tight')
